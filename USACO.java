@@ -27,6 +27,7 @@ public class USACO{
     ArrayList<Integer> firstLine;
     ArrayList<Integer> fieldElevation;
     ArrayList<String> trampleInstruct;
+
     public bSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
       String first = s.nextLine();
@@ -64,12 +65,17 @@ public class USACO{
       for (int x = 0; x < firstLine.get(3); x++) {
         trampleInstruct.add(s.nextLine());
       }
-      //next line the instructions into trampleInstruct
+
     }
 
     public int solve() {
 
-      //run the other lines of instructions
+      for (int x = 0; x < trampleInstruct.size(); x++) {
+
+        for (int inch = 0; inch < trampleInstruct.get(2); inch++) {
+          stampDown(trampleInstruct.get(0),trampleInstruct.get(1));
+        }
+      }
       int sum = 0;
       for (int x = 0; x < field.length; x++) {
         for (int y = 0; y < field[x].length; y++) {
@@ -125,6 +131,18 @@ public class USACO{
       return me;
     }
 
+    private ArrayList<Integer> convertStringToValues(String soap) {
+      int starter = 0;
+      ArrayList<Integer> help = new ArrayList<Integer>();
+      for (int x = 0; x < soap.length(); x++) {
+        if (soap.charAt(x) == ' ') {
+          String value = soap.substring(starter,x);
+          help.add(new Integer(value));
+          starter = x+1;
+        }
+      }
+      return help;
+    }
     private void convertToDepth(int elevation){
       //change array to be like this, in case of needing to see this step
       //not sure what equal elevation of water would entail, water or land?
