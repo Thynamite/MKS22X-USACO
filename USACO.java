@@ -7,31 +7,40 @@ import java.util.Scanner;
 public class USACO{
 
   public static int bronze(String filename){
+    try {
+      File f = new File(filename);
+      bSolve b;
+      b = new bSolve(f);
+
+    }
+    catch (FileNotFoundException f) {
+
+    }
 
     return 1;
   }
 
-  private int bronzeH(File filename, int[] start) {
-    return 1;
-  }
 
-
-  public class bronzeSolve {
+  public static class bSolve {
 
     int[][] field;
     ArrayList<Integer> firstLine;
     ArrayList<String> trampleInstruct;
-    public bronzeSolve(File f) throws FileNotFoundException {
+    public bSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
       String first = s.nextLine();
       for (int x = 0; x < first.length(); x++) {
         //put firstline into firstline
       }
       //make an array to dimensions given
+      //get the first value
       //fill array
+      //next line the instructions into trampleInstruct
     }
 
     public int solve() {
+
+      //run the other lines of instructions
       int sum = 0;
       for (int x = 0; x < field.length; x++) {
         for (int y = 0; y < field[x].length; y++) {
