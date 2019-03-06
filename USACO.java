@@ -32,6 +32,7 @@ public class USACO{
 
     private void stampDown(int row, int col, int inches) {
       ArrayList<Integer> fieldAffect = new ArrayList<Integer>();  //holds the coordinates of all the plots to be affected
+      ArrayList<Integer> fieldToAffect = new ArrayList<Integer>(); //holds the equal elevation plot to be affected
       for (int x = 0; x < 3; x++) {
         for (int y = 0; y < 3; y++) {
           if (row + x < field.length && col + y < field[row].length) {
@@ -40,7 +41,18 @@ public class USACO{
           }
         }
       }
+      int[] high = findHighest(fieldAffect);
 
+      for (int x = 0; x < fieldAffect.size(); x+= 2) {
+
+        if (field[fieldAffect.get(x)][fieldAffect.get(x+1)] == field[high[0]][high[1]]){
+          fieldToAffect.add(fieldAffect.get(x));
+          fieldToAffect.add(fieldAffect.get(x+1));
+        }
+      }
+      for (int x = 0; x < fieldToAffect.size(); x+=2) {
+        lower(x,x+1);
+      }
     }
 
     private void lower(int row, int col) {
