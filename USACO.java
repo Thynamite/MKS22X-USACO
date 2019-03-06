@@ -52,7 +52,16 @@ public class USACO{
           }
         }
       }
-      //fill array
+
+      int index = 0;
+      for (int r = 0; r < field.length; r++) {
+        for (int c = 0; c < field[r].length; c++) {
+          field[r][c] = fieldElevation.get(index);
+          index++;
+        }
+      }
+
+      
       //next line the instructions into trampleInstruct
     }
 
