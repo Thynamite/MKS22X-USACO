@@ -31,27 +31,13 @@ public class USACO{
     public bSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
       String first = s.nextLine();
-      int start = 0;
-      for (int x = 0; x < first.length(); x++) {
-        if (first.charAt(x) == ' ') {
-          String value = first.substring(start,x);
-          firstLine.add(new Integer(value));
-          start = x+1;
-        }
-      }
+      firstLine = convertStringToValues(first);
       field = new int[firstLine.get(0)][firstLine.get(1)]; //field to given size
 
       //get the first value
       for (int x = 0; x < firstLine.get(0);x++) {  //i repeated this, cause im dumb
         String row = s.nextLine();
-        int starter = 0;
-        for (int y = 0; y < row.length(); y++) {
-          if (row.charAt(y) == ' '){
-            String value = row.substring(starter,y);
-            fieldElevation.add(new Integer(value));
-            start = y+1;
-          }
-        }
+        fieldElevation.addAll(convertStringToValues(row));
       }
 
       int index = 0;
