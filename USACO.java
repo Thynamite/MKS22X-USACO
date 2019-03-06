@@ -61,7 +61,9 @@ public class USACO{
         }
       }
 
-      
+      for (int x = 0; x < firstLine.get(3); x++) {
+        trampleInstruct.add(s.nextLine());
+      }
       //next line the instructions into trampleInstruct
     }
 
