@@ -20,6 +20,7 @@ public class USACO{
 
     int[][] field;
     ArrayList<Integer> firstLine;
+    ArrayList<String> trampleInstruct;
     public bronzeSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
       String first = s.nextLine();
@@ -30,7 +31,10 @@ public class USACO{
       //fill array
     }
 
-    private void stampDown(int row, int col, int inches) {
+    public int solve() {
+      return 1;
+    }
+    private void stampDown(int row, int col) {
       ArrayList<Integer> fieldAffect = new ArrayList<Integer>();  //holds the coordinates of all the plots to be affected
       ArrayList<Integer> fieldToAffect = new ArrayList<Integer>(); //holds the equal elevation plot to be affected
       for (int x = 0; x < 3; x++) {
@@ -72,6 +76,20 @@ public class USACO{
       me[0] = r;
       me[1] = c;
       return me;
+    }
+
+    private void convertToDepth(int elevation){
+      //not sure what equal elevation of water would entail, water or land?
+      for (int x = 0; x < field.length; x++) {
+        for (int y = 0; y < field.length; y++) {
+          if (field[x][y] >= elevation) {
+            field[x][y] = -1;
+          }
+          else {
+            field[x][y] = elevation - field[x][y];
+          }
+        }
+      }
     }
   }
 }
