@@ -57,9 +57,9 @@ public class USACO{
     public int solve() {
 
       for (int x = 0; x < trampleInstruct.size(); x++) {
-
-        for (int inch = 0; inch < trampleInstruct.get(2); inch++) {
-          stampDown(trampleInstruct.get(0),trampleInstruct.get(1));
+        ArrayList<Integer> instruct = convertStringToValues(trampleInstruct.get(x));
+        for (int inch = 0; inch < instruct.get(2); inch++) {
+          stampDown(instruct.get(0),instruct.get(1));
         }
       }
       int sum = 0;
