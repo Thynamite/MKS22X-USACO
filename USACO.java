@@ -32,7 +32,16 @@ public class USACO{
     }
 
     public int solve() {
-      return 1;
+      int sum = 0;
+      for (int x = 0; x < field.length; x++) {
+        for (int y = 0; y < field[x].length; y++) {
+          if (field[x][y] != -1) {
+            sum += field[x][y];
+          }
+        }
+      }
+      sum*= 72 * 72;
+      return sum;
     }
     private void stampDown(int row, int col) {
       ArrayList<Integer> fieldAffect = new ArrayList<Integer>();  //holds the coordinates of all the plots to be affected
@@ -79,9 +88,10 @@ public class USACO{
     }
 
     private void convertToDepth(int elevation){
+      //change array to be like this, in case of needing to see this step
       //not sure what equal elevation of water would entail, water or land?
       for (int x = 0; x < field.length; x++) {
-        for (int y = 0; y < field.length; y++) {
+        for (int y = 0; y < field[x].length; y++) {
           if (field[x][y] >= elevation) {
             field[x][y] = -1;
           }
