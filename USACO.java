@@ -29,8 +29,13 @@ public class USACO{
     public bSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
       String first = s.nextLine();
+      int start = 0;
       for (int x = 0; x < first.length(); x++) {
-        //put firstline into firstline
+        if (first.charAt(x) == ' ') {
+          String value = first.substring(start,x);
+          firstLine.add(new Integer(value));
+          start = x+1;
+        }
       }
       //make an array to dimensions given
       //get the first value
