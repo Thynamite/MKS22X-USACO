@@ -9,6 +9,7 @@ public class USACO{
   public static void main(String[] args) {
     System.out.println(bronze(args[0]));
   }
+  */
   public static int bronze(String filename){
     try {
       File f = new File(filename);
@@ -21,7 +22,7 @@ public class USACO{
     }
     return -1;
   }
-  */
+
 
   public static class bSolve {
 
@@ -190,6 +191,69 @@ public class USACO{
         fieldy += '\n';
       }
       return fieldy;
+    }
+  }
+
+
+  //patten is maybe odd moves cannot move to start (or even distance away), even move patten is unkwown
+  public static int silver(String filename){
+
+    File f = new File(filename);
+  }
+
+  public class Ssilver{
+
+    int[][] field;
+    ArrayList<Integer> firstLine;
+    ArrayList<Character> fieldTerrain = new ArrayList<Character>();
+    ArrayList<Integer> coordinatesStartEnd;
+
+    public Ssilver(File instruct) throws FileNotFoundException {
+      Scanner ss = new Scanner(instruct);
+      String fLine = ss.nextLine();
+      firstLine = convertStringToValues(fLine);
+
+      field = new int[firstLine.get(0)][firstLine.get(1)];
+
+      for (int x = 0; x < firstLine.get(0);x++) {
+        String row = ss.nextLine();;
+        for (int i = 0; i < row.length(); i++) {
+          fieldTerrain.add(row.charAt(i));
+        }
+      }
+
+      int index = 0;
+      for (int r = 0; r < field.length; r++) {
+        for (int c = 0; c < field[r].length; c++) {
+          field[r][c] = fieldTerrain.get(index);
+          index++;
+        }
+      }
+
+      coordinatesStartEnd = convertStringToValues(ss.nextLine());
+    }
+
+    //read string to arraylist of ints
+    public ArrayList<Integer> convertStringToValues(String soap) {
+      int starter = 0;
+      ArrayList<Integer> help = new ArrayList<Integer>();
+
+      for (int x = 0; x < soap.length(); x++) {
+        if (soap.charAt(x) == ' ') {
+          String value = soap.substring(starter,x);
+          help.add(new Integer(value));
+          starter = x+1;
+        }
+      }
+
+      for (int x = soap.length()-1; x > -1; x--){
+        if (soap.charAt(x) == ' '){
+          String value = soap.substring(x+1);
+          help.add(new Integer(value));
+          x = -450;
+        }
+      }
+      return help;
     }
   }
 }
