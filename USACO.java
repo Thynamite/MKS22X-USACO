@@ -26,8 +26,8 @@ public class USACO{
 
     int[][] field;
     ArrayList<Integer> firstLine;
-    ArrayList<Integer> fieldElevation;
-    ArrayList<String> trampleInstruct;
+    ArrayList<Integer> fieldElevation = new ArrayList<Integer>();
+    ArrayList<String> trampleInstruct = new ArrayList<String>();
 
     public bSolve(File f) throws FileNotFoundException {
       Scanner s = new Scanner(f);
@@ -35,10 +35,15 @@ public class USACO{
       firstLine = convertStringToValues(first);
       field = new int[firstLine.get(0)][firstLine.get(1)]; //field to given size
 
-      //get the first value
-      for (int x = 0; x < firstLine.get(0);x++) {  //i repeated this, cause im dumb
+      for (int x = 0; x < firstLine.get(0);x++) {
         String row = s.nextLine();
-        fieldElevation.addAll(convertStringToValues(row));
+        //System.out.println(row);
+        ArrayList<Integer> g = convertStringToValues(row);
+        //System.out.println(g);
+        for (int i = 0; i < g.size(); i++) {
+          fieldElevation.add(g.get(i));
+        }
+        //fieldElevation.addAll(g); idk why addall doesn't work
       }
 
       int index = 0;
