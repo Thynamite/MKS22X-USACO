@@ -61,13 +61,16 @@ public class USACO{
     }
 
     public int solve() {
-
+      System.out.println(yes());
       for (int x = 0; x < trampleInstruct.size(); x++) {
         ArrayList<Integer> instruct = convertStringToValues(trampleInstruct.get(x));
         for (int inch = 0; inch < instruct.get(2); inch++) {
-          stampDown(instruct.get(0),instruct.get(1));
+          stampDown(instruct.get(0)-1,instruct.get(1)-1);
         }
+        System.out.println(yes());
       }
+      convertToDepth(firstLine.get(2));
+      System.out.println(yes());
       int sum = 0;
       for (int x = 0; x < field.length; x++) {
         for (int y = 0; y < field[x].length; y++) {
@@ -90,7 +93,11 @@ public class USACO{
           }
         }
       }
+      //System.out.println(fieldAffect);
       int[] high = findHighest(fieldAffect);
+      //System.out.println(high[0] + " " + high[1]);
+      //System.out.println(field[high[0]][high[1]]);
+      //System.out.println(field[fieldAffect.get(2)][fieldAffect.get(3)]);
 
       for (int x = 0; x < fieldAffect.size(); x+= 2) {
 
@@ -99,8 +106,9 @@ public class USACO{
           fieldToAffect.add(fieldAffect.get(x+1));
         }
       }
+      //System.out.println(fieldToAffect);
       for (int x = 0; x < fieldToAffect.size(); x+=2) {
-        lower(x,x+1);
+        lower(fieldToAffect.get(x),fieldToAffect.get(x+1));
       }
     }
 
@@ -157,6 +165,16 @@ public class USACO{
           }
         }
       }
+    }
+    private String yes() {
+      String fieldy = "";
+      for (int r = 0; r < field.length; r++) {
+        for (int c = 0; c < field[r].length; c++){
+          fieldy += field[r][c] + " ";
+        }
+        fieldy += '\n';
+      }
+      return fieldy;
     }
   }
 }
