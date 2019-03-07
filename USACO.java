@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class USACO{
+  /* testing purposes
   public static void main(String[] args) {
     System.out.println(bronze(args[0]));
   }
@@ -20,21 +21,24 @@ public class USACO{
     }
     return -1;
   }
-
+  */
 
   public static class bSolve {
 
-    int[][] field;
-    ArrayList<Integer> firstLine;
-    ArrayList<Integer> fieldElevation = new ArrayList<Integer>();
-    ArrayList<String> trampleInstruct = new ArrayList<String>();
+    int[][] field;  //will hold all the elevations
+    ArrayList<Integer> firstLine;  //holds the integers that determine the setup
+    ArrayList<Integer> fieldElevation = new ArrayList<Integer>();   //array that reads the strings that hold the elevation to be placed into field
+    ArrayList<String> trampleInstruct = new ArrayList<String>();   //holds the strings of the trample instructions
 
-    public bSolve(File f) throws FileNotFoundException {
+    public bSolve(File f) throws FileNotFoundException {   //constructor that fills the instances
       Scanner s = new Scanner(f);
       String first = s.nextLine();
+
+      //fills the arraylist with the ints
       firstLine = convertStringToValues(first);
       field = new int[firstLine.get(0)][firstLine.get(1)]; //field to given size
 
+      //fills fieldelevation array
       for (int x = 0; x < firstLine.get(0);x++) {
         String row = s.nextLine();
         //System.out.println(row);
@@ -46,6 +50,7 @@ public class USACO{
         //fieldElevation.addAll(g); idk why addall doesn't work
       }
 
+      //fills the field int[][]
       int index = 0;
       for (int r = 0; r < field.length; r++) {
         for (int c = 0; c < field[r].length; c++) {
@@ -54,6 +59,7 @@ public class USACO{
         }
       }
 
+      //fills the array list with the trample instructions, number of is 3rd index
       for (int x = 0; x < firstLine.get(3); x++) {
         trampleInstruct.add(s.nextLine());
       }
@@ -61,16 +67,22 @@ public class USACO{
     }
 
     public int solve() {
-      System.out.println(yes());
+      //System.out.println(yes());
+
+      //trample the land through all the instructions, and each one is run for how many inches are done
       for (int x = 0; x < trampleInstruct.size(); x++) {
         ArrayList<Integer> instruct = convertStringToValues(trampleInstruct.get(x));
         for (int inch = 0; inch < instruct.get(2); inch++) {
-          stampDown(instruct.get(0)-1,instruct.get(1)-1);
+          stampDown(instruct.get(0)-1,instruct.get(1)-1); //my array field is by index, so 0,0 is 1,1
         }
-        System.out.println(yes());
+        //System.out.println(yes());
       }
+
+      //turns the land to water, -1 if above water, not sure what equal elvation entails, presumably nothing
       convertToDepth(firstLine.get(2));
-      System.out.println(yes());
+      //System.out.println(yes());
+
+      //finds the total area of area underwater
       int sum = 0;
       for (int x = 0; x < field.length; x++) {
         for (int y = 0; y < field[x].length; y++) {
@@ -79,9 +91,11 @@ public class USACO{
           }
         }
       }
-      sum*= 72 * 72;
+      sum*= 72 * 72; //just for volume sake
       return sum;
     }
+
+    //stamps down the 3x3 area, but checks if that zone goes off the field to avoid outofbounds exception
     private void stampDown(int row, int col) {
       ArrayList<Integer> fieldAffect = new ArrayList<Integer>();  //holds the coordinates of all the plots to be affected
       ArrayList<Integer> fieldToAffect = new ArrayList<Integer>(); //holds the equal elevation plot to be affected
@@ -94,7 +108,7 @@ public class USACO{
         }
       }
       //System.out.println(fieldAffect);
-      int[] high = findHighest(fieldAffect);
+      int[] high = findHighest(fieldAffect);  //coordiantes of the peak
       //System.out.println(high[0] + " " + high[1]);
       //System.out.println(field[high[0]][high[1]]);
       //System.out.println(field[fieldAffect.get(2)][fieldAffect.get(3)]);
@@ -111,11 +125,11 @@ public class USACO{
         lower(fieldToAffect.get(x),fieldToAffect.get(x+1));
       }
     }
-
+    //helper method to lower the field elevation at coordinates by 1
     private void lower(int row, int col) {
       field[row][col]--;
     }
-
+    //finds the highest coordinate elevation in the given array (which is the target 3x3 area)
     private int[] findHighest(ArrayList<Integer> help) {
       int[] me = new int[2];
       int r = help.get(0);
@@ -130,7 +144,7 @@ public class USACO{
       me[1] = c;
       return me;
     }
-
+    //read string to arraylist of ints
     private static ArrayList<Integer> convertStringToValues(String soap) {
       int starter = 0;
       ArrayList<Integer> help = new ArrayList<Integer>();
@@ -153,7 +167,7 @@ public class USACO{
       return help;
     }
     private void convertToDepth(int elevation){
-      //change array to be like this, in case of needing to see this step
+      //change array to be in depth instead of elevation, in case of needing to see this step
       //not sure what equal elevation of water would entail, water or land?
       for (int x = 0; x < field.length; x++) {
         for (int y = 0; y < field[x].length; y++) {
@@ -166,6 +180,7 @@ public class USACO{
         }
       }
     }
+    //just a tostring that is for testing only
     private String yes() {
       String fieldy = "";
       for (int r = 0; r < field.length; r++) {
