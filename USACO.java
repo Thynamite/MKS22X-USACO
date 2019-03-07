@@ -5,19 +5,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class USACO{
-
+  public static void main(String[] args) {
+    System.out.println(bronze(args[0]));
+  }
   public static int bronze(String filename){
     try {
       File f = new File(filename);
       bSolve b;
       b = new bSolve(f);
-
+      return b.solve();
     }
     catch (FileNotFoundException f) {
 
     }
-
-    return 1;
+    return -1;
   }
 
 
@@ -117,14 +118,23 @@ public class USACO{
       return me;
     }
 
-    private ArrayList<Integer> convertStringToValues(String soap) {
+    private static ArrayList<Integer> convertStringToValues(String soap) {
       int starter = 0;
       ArrayList<Integer> help = new ArrayList<Integer>();
+
       for (int x = 0; x < soap.length(); x++) {
         if (soap.charAt(x) == ' ') {
           String value = soap.substring(starter,x);
           help.add(new Integer(value));
           starter = x+1;
+        }
+      }
+
+      for (int x = soap.length()-1; x > -1; x--){
+        if (soap.charAt(x) == ' '){
+          String value = soap.substring(x+1);
+          help.add(new Integer(value));
+          x = -450;
         }
       }
       return help;
