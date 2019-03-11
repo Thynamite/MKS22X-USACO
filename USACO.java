@@ -197,16 +197,25 @@ public class USACO{
 
   //patten is maybe odd moves cannot move to start (or even distance away), even move patten is unkwown
   public static int silver(String filename){
-
+    try {
     File f = new File(filename);
+    Ssilver d;
+    d = new Ssilver(f);
+    return d.solve();
+  }
+  catch (FileNotFoundException f) {
+
+  }
+  return -1;
   }
 
-  public class Ssilver{
+  public static class Ssilver{
 
     int[][] field;
     ArrayList<Integer> firstLine;
     ArrayList<Character> fieldTerrain = new ArrayList<Character>();
     ArrayList<Integer> coordinatesStartEnd;
+    int distance;
 
     public Ssilver(File instruct) throws FileNotFoundException {
       Scanner ss = new Scanner(instruct);
@@ -231,6 +240,16 @@ public class USACO{
       }
 
       coordinatesStartEnd = convertStringToValues(ss.nextLine());
+
+      distance = Math.abs(coordinatesStartEnd.get(0) - coordinatesStartEnd.get(2)) + Math.abs(coordinatesStartEnd.get(1) - coordinatesStartEnd.get(3));
+
+    }
+
+    public int solve() {
+      if ((distance % 2 == 1 && firstLine.get(2) % 2 == 0) || (distance % 2 == 0 && firstLine.get(2) % 2 == 1)) { //only thing dervied from pattern
+        return 0;
+      }
+      return -1; 
     }
 
     //read string to arraylist of ints
